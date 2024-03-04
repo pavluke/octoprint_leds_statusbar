@@ -8,16 +8,14 @@
 #define NUM_LEDS 23               
 CRGB leds[NUM_LEDS];
 
-#define API_MTBS 10000
-
-const char* ssid = "RT-GPON-2580";          
-const char* password = "#10032023";
+const char* SSID = "RT-GPON-2580";          
+const char* PASSWORD = "#10032023";
 WiFiClient client;
 
+const int OCTOPRINT_HTTP_PORT = 5000;
+const String OCTOPRINT_APIKEY = "D3DAA0102D0748D8BEE59EBFD2432B2D";
 IPAddress ip(192, 168, 0, 123);
-const int octoprint_httpPort = 5000;
-const String octoprint_apikey = "D3DAA0102D0748D8BEE59EBFD2432B2D";
-OctoprintApi api(client, ip, octoprint_httpPort, octoprint_apikey); 
+OctoprintApi api(client, ip, OCTOPRINT_HTTP_PORT, OCTOPRINT_APIKEY); 
 
 const unsigned long api_mtbs = 10000;
 
@@ -34,8 +32,8 @@ void setup() {
   Serial.println();
   Serial.println();
   Serial.print("Connecting to ");
-  Serial.println(ssid);
-  WiFi.begin(ssid, password);
+  Serial.println(SSID);
+  WiFi.begin(SSID, PASSWORD);
 
   while (WiFi.status() != WL_CONNECTED) {
     static byte connection_retry = 0;
@@ -59,7 +57,7 @@ void loop() {
   LEDsController(opState());
 }
 
-String opState(){
+String opState() {
   static String state;
   static String completion;
   static unsigned long api_lasttime = 0;
@@ -95,25 +93,25 @@ void LEDsController(String opState) {
   const byte RED = 0;
   const byte GREEN = 85;
   const byte PURPLE = 213;
-  int index = opState.indexOf(' ');
-  String state = opState.substring(0,index);
-  float completion = opState.substring(index).toFloat();
+  const int INDEX = opState.indexOf(' ');
+  const String STATE = opState.substring(0,INDEX);
+  const float COMPLETION = opState.substring(INDEX).toFloat();
 
-  if      (state == PRINTING)             solid(state, completion, GREEN, FULL_BRIGHTNESS, false, true);
-  else if (state == PAUSED)               solid(state, completion, GREEN, FULL_BRIGHTNESS, true, true);
-  else if (state == COMPLITED)            solid(state, FULL_LEDSTRIP, GREEN, FULL_BRIGHTNESS, true, false);
-  else if (state == IDLE)                 solid(state, FULL_LEDSTRIP, GREEN, 20, false, false);
-  else if (state == OFFLINE_AFTER_ERROR)  solid(state, FULL_LEDSTRIP, RED, FULL_BRIGHTNESS, true, false);
-  else if (state == OFFLINE)              solid(state, FULL_LEDSTRIP, RED, 20, false, false);
+  if      (STATE == PRINTING)             solid(STATE, COMPLETION, GREEN, FULL_BRIGHTNESS, false, true);
+  else if (STATE == PAUSED)               solid(STATE, COMPLETION, GREEN, FULL_BRIGHTNESS, true, true);
+  else if (STATE == COMPLITED)            solid(STATE, FULL_LEDSTRIP, GREEN, FULL_BRIGHTNESS, true, false);
+  else if (STATE == IDLE)                 solid(STATE, FULL_LEDSTRIP, GREEN, 20, false, false);
+  else if (STATE == OFFLINE_AFTER_ERROR)  solid(STATE, FULL_LEDSTRIP, RED, FULL_BRIGHTNESS, true, false);
+  else if (STATE == OFFLINE)              solid(STATE, FULL_LEDSTRIP, RED, 20, false, false);
 }
 
 void solid(String state, float completion, byte color, byte brightness, bool blink, bool borders) {
   // Яркость оставшейся части статус-бара
-  byte SECONDARY_BRIGHTNESS = 20;
+  const byte SECONDARY_BRIGHTNESS = 20;
 
   static uint32_t timer;
-  int DELAY = (brightness < 255) ? 1000 : 500;
-  int progress = NUM_LEDS * (completion - 2) / 100;
+  const int DELAY = (brightness < 255) ? 1000 : 500;
+  const int PROGRESS = NUM_LEDS * (completion - 2) / 100;
   int sub_progress = (int(completion) - completion) * 100;
   if (sub_progress != 0){
     if(sub_progress < 50) sub_progress = -sub_progress;
@@ -122,8 +120,8 @@ void solid(String state, float completion, byte color, byte brightness, bool bli
   }
 
   if (!blink){
-    fill_solid(leds, progress, CHSV(color, 255, brightness));
-    if(completion < 100) leds[progress] = CHSV(color, 255, sub_progress);
+    fill_solid(leds, PROGRESS, CHSV(color, 255, brightness));
+    if(completion < 100) leds[PROGRESS] = CHSV(color, 255, sub_progress);
     if(borders){
       leds[0] = CHSV(color + 40, 255, 255);
       leds[NUM_LEDS - 1] = leds[0];
@@ -141,8 +139,8 @@ void solid(String state, float completion, byte color, byte brightness, bool bli
       }
     }
     else{
-      fill_solid(leds, progress, CHSV(color, 255, 255));
-      leds[progress] = CHSV(color, 255, sub_progress);
+      fill_solid(leds, PROGRESS, CHSV(color, 255, 255));
+      leds[PROGRESS] = CHSV(color, 255, sub_progress);
       if(borders){
         leds[0] = CHSV(color + 40, 255, 255);
         leds[NUM_LEDS - 1] = leds[0];
