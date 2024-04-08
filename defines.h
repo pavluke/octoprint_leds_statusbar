@@ -6,3 +6,4 @@
 #define IDLE "Idle"
 #define OFFLINE_AFTER_ERROR "Offline after error"
 #define OFFLINE "Offline"
+#define NOT_CONNECTED "Not_connected"

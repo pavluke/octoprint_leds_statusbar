@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Arduino",
-            "compilerPath": "C:\\Users\\user\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\3.1.0-gcc10.3-e5f9fec\\bin\\xtensa-lx106-elf-g++",
+            "compilerPath": "/Users/user/Library/Arduino15/packages/esp8266/tools/xtensa-lx106-elf-gcc/3.1.0-gcc10.3-e5f9fec/bin/xtensa-lx106-elf-g++",
             "compilerArgs": [
                 "-U__STRICT_ANSI__",
                 "-free",
@@ -17,24 +17,24 @@
             ],
             "intelliSenseMode": "gcc-x64",
             "includePath": [
-                "C:\\Users\\user\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.1.2\\tools\\sdk\\include",
-                "C:\\Users\\user\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.1.2\\tools\\sdk\\lwip2\\include",
-                "C:\\Users\\user\\AppData\\Local\\Temp\\arduino\\sketches\\079E94BED80678D3C317114DEA234862\\core",
-                "C:\\Users\\user\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.1.2\\cores\\esp8266",
-                "C:\\Users\\user\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.1.2\\variants\\generic",
-                "C:\\Users\\user\\Documents\\Arduino\\libraries\\OctoPrintAPI",
-                "C:\\Users\\user\\Documents\\Arduino\\libraries\\ArduinoJson\\src",
-                "C:\\Users\\user\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.1.2\\libraries\\ESP8266WiFi\\src",
-                "C:\\Users\\user\\Documents\\Arduino\\libraries\\FastLED\\src",
-                "c:\\users\\user\\appdata\\local\\arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\3.1.0-gcc10.3-e5f9fec\\xtensa-lx106-elf\\include\\c++\\10.3.0",
-                "c:\\users\\user\\appdata\\local\\arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\3.1.0-gcc10.3-e5f9fec\\xtensa-lx106-elf\\include\\c++\\10.3.0\\xtensa-lx106-elf",
-                "c:\\users\\user\\appdata\\local\\arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\3.1.0-gcc10.3-e5f9fec\\xtensa-lx106-elf\\include\\c++\\10.3.0\\backward",
-                "c:\\users\\user\\appdata\\local\\arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\3.1.0-gcc10.3-e5f9fec\\lib\\gcc\\xtensa-lx106-elf\\10.3.0\\include",
-                "c:\\users\\user\\appdata\\local\\arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\3.1.0-gcc10.3-e5f9fec\\lib\\gcc\\xtensa-lx106-elf\\10.3.0\\include-fixed",
-                "c:\\users\\user\\appdata\\local\\arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\3.1.0-gcc10.3-e5f9fec\\xtensa-lx106-elf\\include"
+                "/Users/user/Library/Arduino15/packages/esp8266/hardware/esp8266/3.1.2/tools/sdk/include",
+                "/Users/user/Library/Arduino15/packages/esp8266/hardware/esp8266/3.1.2/tools/sdk/lwip2/include",
+                "/private/var/folders/wz/ccl374js76z8n3twz9_6c6500000gn/T/arduino/sketches/E0154E832160DD3B3EE40F8D1251CF41/core",
+                "/Users/user/Library/Arduino15/packages/esp8266/hardware/esp8266/3.1.2/cores/esp8266",
+                "/Users/user/Library/Arduino15/packages/esp8266/hardware/esp8266/3.1.2/variants/generic",
+                "/Users/user/Documents/Arduino/libraries/OctoPrintAPI",
+                "/Users/user/Documents/Arduino/libraries/ArduinoJson/src",
+                "/Users/user/Library/Arduino15/packages/esp8266/hardware/esp8266/3.1.2/libraries/ESP8266WiFi/src",
+                "/Users/user/Documents/Arduino/libraries/FastLED/src",
+                "/Users/user/Library/Arduino15/packages/esp8266/tools/xtensa-lx106-elf-gcc/3.1.0-gcc10.3-e5f9fec/xtensa-lx106-elf/include/c++/10.3.0",
+                "/Users/user/Library/Arduino15/packages/esp8266/tools/xtensa-lx106-elf-gcc/3.1.0-gcc10.3-e5f9fec/xtensa-lx106-elf/include/c++/10.3.0/xtensa-lx106-elf",
+                "/Users/user/Library/Arduino15/packages/esp8266/tools/xtensa-lx106-elf-gcc/3.1.0-gcc10.3-e5f9fec/xtensa-lx106-elf/include/c++/10.3.0/backward",
+                "/Users/user/Library/Arduino15/packages/esp8266/tools/xtensa-lx106-elf-gcc/3.1.0-gcc10.3-e5f9fec/lib/gcc/xtensa-lx106-elf/10.3.0/include",
+                "/Users/user/Library/Arduino15/packages/esp8266/tools/xtensa-lx106-elf-gcc/3.1.0-gcc10.3-e5f9fec/lib/gcc/xtensa-lx106-elf/10.3.0/include-fixed",
+                "/Users/user/Library/Arduino15/packages/esp8266/tools/xtensa-lx106-elf-gcc/3.1.0-gcc10.3-e5f9fec/xtensa-lx106-elf/include"
             ],
             "forcedInclude": [
-                "C:\\Users\\user\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.1.2\\cores\\esp8266\\Arduino.h"
+                "/Users/user/Library/Arduino15/packages/esp8266/hardware/esp8266/3.1.2/cores/esp8266/Arduino.h"
             ],
             "cStandard": "c11",
             "cppStandard": "c++17",

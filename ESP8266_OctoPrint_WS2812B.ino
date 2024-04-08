@@ -4,19 +4,38 @@
 #include <FastLED.h>
 #include "defines.h"
 
-#define LED_PIN 2                  
-#define NUM_LEDS 23               
-CRGB leds[NUM_LEDS];
 
-const char* SSID = "RT-GPON-2580";          
+// Wi-FI SSID
+const char* SSID = "Xiaomi_6C55"; 
+
+// Wi-Fi пароль         
 const char* PASSWORD = "#10032023";
-WiFiClient client;
 
+// Количество светодиодов
+#define NUM_LEDS 23 
+
+// IP адрес сервера OctoPrint
+IPAddress ip(192, 168, 31, 123);
+
+// Порт OctoPrint
 const int OCTOPRINT_HTTP_PORT = 5000;
-const String OCTOPRINT_APIKEY = "D3DAA0102D0748D8BEE59EBFD2432B2D";
-IPAddress ip(192, 168, 0, 123);
-OctoprintApi api(client, ip, OCTOPRINT_HTTP_PORT, OCTOPRINT_APIKEY); 
 
+// API токен OctoPrint
+const String OCTOPRINT_APIKEY = "D3DAA0102D0748D8BEE59EBFD2432B2D";
+
+
+// Яркость оставшейся части статус-бара
+const byte LOW_BRIGHTNESS = 20;
+
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+
+
+#define LED_PIN 2              
+CRGB leds[NUM_LEDS];
+WiFiClient client;
+OctoprintApi api(client, ip, OCTOPRINT_HTTP_PORT, OCTOPRINT_APIKEY); 
 const unsigned long api_mtbs = 10000;
 
 void setup() {
@@ -47,7 +66,7 @@ void setup() {
   }
  
   Serial.println();
-  Serial.print("WiFi connected \n IP address: ");
+  Serial.print("WiFi connected\nIP address: ");
   Serial.println(WiFi.localIP());
   fill_solid(leds, NUM_LEDS, 0);
   FastLED.show();
@@ -80,7 +99,12 @@ String opState() {
         }
         else Serial.println(state);
       }
-      else octoErrors++;
+      
+      else {
+        octoErrors++;
+        Serial.println(NOT_CONNECTED);
+        state = NOT_CONNECTED;
+      }
       api_lasttime = millis();
     }
   }
@@ -100,18 +124,18 @@ void LEDsController(String opState) {
   if      (STATE == PRINTING)             solid(STATE, COMPLETION, GREEN, FULL_BRIGHTNESS, false, true);
   else if (STATE == PAUSED)               solid(STATE, COMPLETION, GREEN, FULL_BRIGHTNESS, true, true);
   else if (STATE == COMPLITED)            solid(STATE, FULL_LEDSTRIP, GREEN, FULL_BRIGHTNESS, true, false);
-  else if (STATE == IDLE)                 solid(STATE, FULL_LEDSTRIP, GREEN, 20, false, false);
+  else if (STATE == IDLE)                 solid(STATE, FULL_LEDSTRIP, GREEN, LOW_BRIGHTNESS, false, false);
   else if (STATE == OFFLINE_AFTER_ERROR)  solid(STATE, FULL_LEDSTRIP, RED, FULL_BRIGHTNESS, true, false);
-  else if (STATE == OFFLINE)              solid(STATE, FULL_LEDSTRIP, RED, 20, false, false);
+  else if (STATE == OFFLINE)              solid(STATE, FULL_LEDSTRIP, RED, LOW_BRIGHTNESS, false, false);
+  else if (STATE == NOT_CONNECTED)        solid(STATE, FULL_LEDSTRIP, RED, LOW_BRIGHTNESS, true, false);
 }
 
 void solid(String state, float completion, byte color, byte brightness, bool blink, bool borders) {
-  // Яркость оставшейся части статус-бара
-  const byte SECONDARY_BRIGHTNESS = 20;
 
   static uint32_t timer;
   const int DELAY = (brightness < 255) ? 1000 : 500;
-  const int PROGRESS = NUM_LEDS * (completion - 2) / 100;
+  // Почему было completion-2?
+  const int PROGRESS = NUM_LEDS * (completion) / 100;
   int sub_progress = (int(completion) - completion) * 100;
   if (sub_progress != 0){
     if(sub_progress < 50) sub_progress = -sub_progress;
@@ -131,10 +155,8 @@ void solid(String state, float completion, byte color, byte brightness, bool bli
   else{
     if (millis() - timer < DELAY){
       fill_solid(leds, NUM_LEDS, 0);
-      leds[0] = CHSV(color + 40, 255, 255);
-      leds[NUM_LEDS - 1] = leds[0];
       if(borders){
-        leds[0] = CHSV(color + 40, 255, 255);
+        leds[0] = getBorderColor(color);
         leds[NUM_LEDS - 1] = leds[0];
       }
     }
@@ -142,7 +164,7 @@ void solid(String state, float completion, byte color, byte brightness, bool bli
       fill_solid(leds, PROGRESS, CHSV(color, 255, 255));
       leds[PROGRESS] = CHSV(color, 255, sub_progress);
       if(borders){
-        leds[0] = CHSV(color + 40, 255, 255);
+        leds[0] = getBorderColor(color);
         leds[NUM_LEDS - 1] = leds[0];
       }
     }
@@ -150,3 +172,7 @@ void solid(String state, float completion, byte color, byte brightness, bool bli
     if (millis() - timer > DELAY*2) timer = millis();
   }
 }
+
+CHSV getBorderColor(byte color) {
+  return CHSV(color + 40, 255, 255);
+};
