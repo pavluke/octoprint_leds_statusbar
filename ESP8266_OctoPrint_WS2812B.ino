@@ -36,7 +36,7 @@ const byte LOW_BRIGHTNESS = 20;
 CRGB leds[NUM_LEDS];
 WiFiClient client;
 OctoprintApi api(client, ip, OCTOPRINT_HTTP_PORT, OCTOPRINT_APIKEY); 
-const unsigned long api_mtbs = 10000;
+const unsigned long api_mtbs = 20000;
 
 void setup() {
   Serial.begin(115200);
@@ -134,8 +134,7 @@ void solid(String state, float completion, byte color, byte brightness, bool bli
 
   static uint32_t timer;
   const int DELAY = (brightness < 255) ? 1000 : 500;
-  // Почему было completion-2?
-  const int PROGRESS = NUM_LEDS * (completion) / 100;
+  const int PROGRESS = NUM_LEDS * (completion-2) / 100;
   int sub_progress = (int(completion) - completion) * 100;
   if (sub_progress != 0){
     if(sub_progress < 50) sub_progress = -sub_progress;
@@ -144,7 +143,7 @@ void solid(String state, float completion, byte color, byte brightness, bool bli
   }
 
   if (!blink){
-    fill_solid(leds, PROGRESS, CHSV(color, 255, brightness));
+    fill_solid(leds, PROGRESS, CHSV(color, 255, LOW_BRIGHTNESS));
     if(completion < 100) leds[PROGRESS] = CHSV(color, 255, sub_progress);
     if(borders){
       leds[0] = CHSV(color + 40, 255, 255);
