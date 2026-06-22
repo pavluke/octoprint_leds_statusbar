@@ -26,13 +26,14 @@ On boot, while connecting to Wi-Fi, the strip blinks blue outward from the cente
 
 ## Project structure
 
-| File          | Purpose                                                                                        |
-| ------------- | ---------------------------------------------------------------------------------------------- |
-| `octoled.ino` | Main logic: polling OctoPrint, rendering status on the strip                                   |
-| `defines.h`   | Printer status enum and OctoPrint API response parsing                                         |
-| `secrets.h`   | Your personal connection details (Wi-Fi, OctoPrint) — **not committed**                        |
-| `errors.h`    | Validates that all `secrets.h` fields are filled in; stops the build with a clear error if not |
-| `logger.h`    | Leveled logging (DEBUG/INFO/WARNING/ERROR)                                                     |
+| File                | Purpose                                                                                        |
+| ------------------- | ---------------------------------------------------------------------------------------------- |
+| `octoled.ino`       | Main logic: polling OctoPrint, rendering status on the strip                                   |
+| `defines.h`         | Printer status enum and OctoPrint API response parsing                                         |
+| `secrets.h`         | Your personal connection details (Wi-Fi, OctoPrint) — **not committed**                        |
+| `secrets.h.example` | Template for `secrets.h` — empty placeholders, safe to commit                                  |
+| `errors.h`          | Validates that all `secrets.h` fields are filled in; stops the build with a clear error if not |
+| `logger.h`          | Leveled logging (DEBUG/INFO/WARNING/ERROR)                                                     |
 
 ## Setup
 
